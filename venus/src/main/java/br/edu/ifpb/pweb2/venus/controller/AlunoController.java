@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.ifpb.pweb2.venus.model.Aluno;
 import br.edu.ifpb.pweb2.venus.service.AlunoService;
 
 @Controller
@@ -21,7 +20,7 @@ public class AlunoController {
     @RequestMapping("/form")
     public ModelAndView getForm(ModelAndView modelAndView){
         modelAndView.setViewName("alunos/form");
-        modelAndView.addObject("aluno", new Aluno());
+        // modelAndView.addObject("aluno", new Aluno())
         return modelAndView;
         
     }

@@ -3,6 +3,8 @@ package br.edu.ifpb.pweb2.venus.model;
 import java.util.Date;
 
 public class Colegiado {
+    //id: int, dataInicio: date, dataFim: date, descricao: str,
+    //portaria: str, curso: str
 
     //@Id
     //@GeneratedValue(strategy= GenerationType.IDENTITY)
