@@ -4,7 +4,7 @@
     <div layout:fragment="content">
 
 
-        <form class="form-inline" th:action="@{/alunos}" method="POST" th:object="${aluno}">
+        <form class="form-inline" th:action="@{/admin/alunos}" method="POST" th:object="${aluno}">
             <input type="hidden" th:field="*{id}" />
 
             <div class="form-group mx-sm-3 mb-2">

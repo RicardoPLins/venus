@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
+import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.service.AdminService;
 import jakarta.validation.Valid;
 
@@ -45,7 +46,6 @@ public class AdminController {
         }
         adminService.saveAluno(aluno);
         mav.setViewName("redirect:/admin/alunos");
-        // mav.setViewName("admin/listAluno");
         mav.addObject("alunos", adminService.listAluno());
         return mav;
     }
@@ -65,47 +65,47 @@ public class AdminController {
         return mav;
     }
 
-    // @GetMapping("/professor")
-    // public ModelAndView getProfessores(ModelAndView mav) {
-    //     mav.setViewName("admin/listagem-professor");
-    //     mav.addObject("professores", adminService.allTeachers());
-    //     return mav;
-    // }
+    @GetMapping("/professores")
+    public ModelAndView getProfessores(ModelAndView mav) {
+        mav.setViewName("admin/listProfessor");
+        mav.addObject("professores", adminService.listarProfessores());
+        return mav;
+    }
 
-    // @GetMapping("/professor/cadastro")
-    // public ModelAndView getCadastroProfessor(ModelAndView mav) {
-    //     mav.setViewName("admin/cadastro-professor");
-    //     mav.addObject("professor", new Professor());
-    //     return mav;
-    // }
+    @GetMapping("/professores/cadastro")
+    public ModelAndView getCadastroProfessor(ModelAndView mav) {
+        mav.setViewName("admin/formProfessor");
+        mav.addObject("professor", new Professor());
+        return mav;
+    }
 
-    // @PostMapping("/professor")
-    // public ModelAndView saveProfessor(@Valid Professor professor, BindingResult result, ModelAndView mav) {
-    //     if (result.hasErrors()){
-    //         mav.setViewName("admin/cadastro-professor");
-    //         mav.addObject("professor", professor);
-    //         return mav;
-    //     }
-    //     adminService.registerTeacher(professor);
-    //     mav.setViewName("redirect:/admin/professor");
-    //     mav.addObject("professores", adminService.allTeachers());
-    //     return mav;
-    // }
+    @PostMapping("/professores")
+    public ModelAndView saveProfessor(@Valid Professor professor, BindingResult result, ModelAndView mav) {
+        if (result.hasErrors()){
+            mav.setViewName("admin/formProfessor");
+            mav.addObject("professor", professor);
+            return mav;
+        }
+        adminService.salvarProfessor(professor);
+        mav.setViewName("redirect:/admin/professores");
+        mav.addObject("professores", adminService.listarProfessores());
+        return mav;
+    }
 
-    // @GetMapping("/professor/{id}")
-    // public ModelAndView editProfessor(@PathVariable(value = "id") Long id, ModelAndView mav) {
-    //     mav.setViewName("admin/cadastro-professor");
-    //     mav.addObject("professor", adminService.getTeacher(id));
-    //     return mav;
-    // }
+    @GetMapping("/professores/{id}")
+    public ModelAndView editProfessor(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        mav.setViewName("admin/formProfessor");
+        mav.addObject("professor", adminService.getProfessor(id));
+        return mav;
+    }
 
-    // @DeleteMapping("/professor/{id}")
-    // public ModelAndView deleteProfessor(@PathVariable(value = "id") Long id, ModelAndView mav) {
-    //     adminService.removeTeacher(id);
-    //     mav.setViewName("redirect:/admin/professor");
-    //     mav.addObject("professores", adminService.allTeachers());
-    //     return mav;
-    // }
+    @DeleteMapping("/professores/{id}")
+    public ModelAndView deleteProfessor(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        adminService.removerProfessor(id);
+        mav.setViewName("redirect:/admin/professores");
+        mav.addObject("professores", adminService.listarProfessores());
+        return mav;
+    }
 
     
 }

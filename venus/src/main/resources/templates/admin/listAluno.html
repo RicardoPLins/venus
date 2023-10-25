@@ -1,4 +1,4 @@
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:insert="~{layout/layout}" th:with="titulo='Processos de alunos'">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:insert="~{layout/layout}" th:with="titulo='Alunos'">
 
 <body>
     <div layout:fragment="content">
@@ -9,7 +9,7 @@
         <br />
 
         <div th:if="${not #lists.isEmpty(alunos)}">
-            <div th:text="'Total ' + ${#lists.size(alunos)} + ' alunos'" style="text-align: right; color: gray; font-size: 0.85em;" />
+            <div th:text="'Total ' + ${#lists.size(alunos)} + ' alunos'" style="text-align: right; color: gray; font-size: 0.85em;" >
 
             <table class="table table-striped table-hover">
                 <thead>
@@ -26,9 +26,9 @@
                     <tr th:each="aluno : ${alunos}">
                         <td>[[${aluno.id}]]</td>
                         <td><a th:href="@{/alunos/{id}(id=${aluno.id})}" th:text="${aluno.nome}"></a></td>
-                        <td>[[${aluno.email}]]</td>
                         <td>[[${aluno.fone}]]</td>
-                        <td th:text="${#strings.substring(aluno.senha,0,3)} + '...'"></td>
+                        <td>[[${aluno.matricula}]]</td>
+                        <td>[[${#strings.substring(aluno.senha, 0, 3)} + '...']]</td>
                     </tr>
                 </tbody>
             </table>

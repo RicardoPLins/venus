@@ -4,7 +4,7 @@
     <div layout:fragment="content">
 
 
-        <form class="form-inline" th:action="@{/professores}" method="POST" th:object="${Professor}">
+        <form class="form-inline" th:action="@{/admin/professores}" method="POST" th:object="${Professor}">
             <input type="hidden" th:field="*{id}" />
 
             <div class="form-group mx-sm-3 mb-2">
@@ -46,7 +46,7 @@
 
             <div class="form-group mx-sm-3 mb-2">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
-                <a class="btn btn-secondary" th:href="@{/correntistas}">Cancelar</a>
+                <a class="btn btn-secondary" th:href="@{/admin/professores}">Cancelar</a>
             </div>
         </form>
     </div>
