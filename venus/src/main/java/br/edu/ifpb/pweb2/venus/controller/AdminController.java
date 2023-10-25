@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
+import br.edu.ifpb.pweb2.venus.model.Colegiado;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.service.AdminService;
 import jakarta.validation.Valid;
@@ -107,4 +108,41 @@ public class AdminController {
         return mav;
     }
 
+    @GetMapping("/colegiados")
+    public ModelAndView getColegiados(ModelAndView mav) {
+        mav.setViewName("admin/listColegiados");
+        mav.addObject("colegiados", adminService.listarColegiado());
+        return mav;
     }
+
+    @GetMapping("/colegiados/{id}")
+    public ModelAndView editarColegiado(@PathVariable(value = "id") Long id, ModelAndView mav) {
+        mav.setViewName("admin/FormColegiados");
+        mav.addObject("colegiado", adminService.getColegiado(id));
+        return mav;
+    }
+
+    @GetMapping("/colegiados/cadastro")
+    public ModelAndView getCadastroColegiado(ModelAndView mav) {
+        mav.setViewName("admin/FormColegiados");
+        mav.addObject("colegiado", new Colegiado());
+        return mav;
+    }
+
+    @PostMapping("/colegiados")
+    public ModelAndView saveColegiado(Colegiado colegiado, ModelAndView mav) {
+        if (colegiado.getId() == null) {
+            adminService.salvarColegiado(colegiado);
+            mav.setViewName("redirect:/admin/colegiado/" + colegiado.getId() + "/membros");
+
+        }
+        else {
+            adminService.salvarColegiado(colegiado);
+            mav.setViewName("redirect:/admin/colegiado");
+        }
+        return mav;
+
+
+    }
+
+}

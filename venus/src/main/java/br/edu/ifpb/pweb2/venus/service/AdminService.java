@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
+import br.edu.ifpb.pweb2.venus.model.Colegiado;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.repository.AlunoRepository;
+import br.edu.ifpb.pweb2.venus.repository.ColegiadoRepository;
 import br.edu.ifpb.pweb2.venus.repository.ProfessorRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class AdminService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+
+    @Autowired
+    private ColegiadoRepository colegiadoRepository;    
 
     @Transactional
     public void removerAluno(Integer id) {
@@ -54,4 +59,21 @@ public class AdminService {
         return professorRepository.findById(id);
     }
     
+    @Transactional
+    public void removerColegiado(Integer id) {
+        colegiadoRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void salvarColegiado(Colegiado colegiado) {
+        colegiadoRepository.save(colegiado);
+    }
+
+    public List<Colegiado> listarColegiado() {
+        return colegiadoRepository.findAll();
+    }
+
+    public Colegiado getColegiado(Long id) {
+        return colegiadoRepository.findById(id);
+    }
 }
