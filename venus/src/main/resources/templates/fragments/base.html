@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
     <th:block th:replace="${links}" />
 </head>
@@ -21,9 +23,9 @@
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
         <div class="navbar-nav">
             <a th:classappend="${menu == 'home'} ? 'active'" class="nav-item nav-link" th:href="@{/home}">Home</a>
-            <a th:classappend="${menu == 'correntista'} ? 'active'" class="nav-item nav-link" th:href="@{/alunos}">Alunos</a>
-            <a th:classappend="${menu == 'conta'} ? 'active'" class="nav-item nav-link" th:href="@{/professores}">Professores</a>
-            <a th:classappend="${menu == 'operacao'} ? 'active'" class="nav-item nav-link" th:href="@{/alunos/nuprocesso}">Processo</a>
+            <a th:classappend="${menu == 'alunos'} ? 'active'" class="nav-item nav-link" th:href="@{/alunos}">Alunos</a>
+            <a th:classappend="${menu == 'professores'} ? 'active'" class="nav-item nav-link" th:href="@{/professores}">Professores</a>
+            <a th:classappend="${menu == 'processos'} ? 'active'" class="nav-item nav-link" th:href="@{/alunos/nuprocesso}">Processo</a>
         </div>
         <div style="margin-right: 5px;">
             <span th:if="${session.usuario != null}" th:text="${session.usuario.email}" style="margin-right: 3px; font-size: 0.8em;"></span>

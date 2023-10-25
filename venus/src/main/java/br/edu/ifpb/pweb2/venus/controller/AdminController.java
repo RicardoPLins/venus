@@ -15,13 +15,11 @@ import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.service.AdminService;
 import jakarta.validation.Valid;
 
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
-
 
     @GetMapping("/alunos")
     public ModelAndView getAlunos(ModelAndView mav) {
@@ -39,7 +37,7 @@ public class AdminController {
 
     @PostMapping("/alunos")
     public ModelAndView saveAluno(@Valid Aluno aluno, BindingResult result, ModelAndView mav) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             mav.setViewName("admin/formAluno");
             mav.addObject("aluno", aluno);
             return mav;
@@ -57,7 +55,7 @@ public class AdminController {
         return mav;
     }
 
-    @DeleteMapping("/alunos/{id}")
+    @PostMapping("/alunos/{id}")
     public ModelAndView deleteAluno(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         adminService.removerAluno(id);
         mav.setViewName("redirect:/admin/alunos");
@@ -81,7 +79,7 @@ public class AdminController {
 
     @PostMapping("/professores")
     public ModelAndView saveProfessor(@Valid Professor professor, BindingResult result, ModelAndView mav) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             mav.setViewName("admin/formProfessor");
             mav.addObject("professor", professor);
             return mav;
@@ -107,5 +105,4 @@ public class AdminController {
         return mav;
     }
 
-    
 }

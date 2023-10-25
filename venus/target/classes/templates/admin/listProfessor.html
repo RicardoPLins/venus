@@ -20,6 +20,7 @@
                         <th>Matricula</th>
                         <th>Login</th>
                         <th>Senha</th>
+                        <th>Coordenador</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,7 @@
                         <td>[[${professor.matricula}]]</td>
                         <td>[[${professor.login}]]</td>
                         <td th:text="${#strings.substring(professor.senha,0,3)} + '...'"></td>
+                        <td>[[${professor.coordenador}]]</td>
                     </tr>
                 </tbody>
             </table>
