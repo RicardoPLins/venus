@@ -23,13 +23,12 @@ public class AlunoController {
         modelAndView.setViewName("alunos/form");
         modelAndView.addObject("aluno", new Aluno());
         return modelAndView;
-        
     }
 
     @GetMapping
     public ModelAndView listAll(ModelAndView modelAndView){
         modelAndView.setViewName("alunos/list");
-        modelAndView.addObject("contas", alunoService.findAll());
+        modelAndView.addObject("alunos", alunoService.findAll());
         return modelAndView;
     }
     @RequestMapping("/{id}/delete")

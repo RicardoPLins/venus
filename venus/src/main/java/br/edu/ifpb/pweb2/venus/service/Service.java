@@ -1,6 +1,5 @@
 package br.edu.ifpb.pweb2.venus.service;
 
-
 import java.util.List;
 
 public interface Service<T, ID> {
