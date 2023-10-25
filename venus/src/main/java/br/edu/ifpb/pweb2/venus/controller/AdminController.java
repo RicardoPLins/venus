@@ -141,8 +141,14 @@ public class AdminController {
             mav.setViewName("redirect:/admin/colegiados");
         }
         return mav;
+    }
 
-
+    @DeleteMapping("/colegiados/{id}")
+    public ModelAndView deleteColegiado(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        adminService.removerColegiado(id);
+        mav.setViewName("redirect:/admin/colegiados");
+        mav.addObject("colegiado", adminService.listarColegiado());
+        return mav;
     }
 
 }
