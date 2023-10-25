@@ -110,21 +110,21 @@ public class AdminController {
 
     @GetMapping("/colegiados")
     public ModelAndView getColegiados(ModelAndView mav) {
-        mav.setViewName("admin/listColegiados");
+        mav.setViewName("admin/listColegiado");
         mav.addObject("colegiados", adminService.listarColegiado());
         return mav;
     }
 
     @GetMapping("/colegiados/{id}")
     public ModelAndView editarColegiado(@PathVariable(value = "id") Long id, ModelAndView mav) {
-        mav.setViewName("admin/FormColegiados");
+        mav.setViewName("admin/formColegiado");
         mav.addObject("colegiado", adminService.getColegiado(id));
         return mav;
     }
 
     @GetMapping("/colegiados/cadastro")
     public ModelAndView getCadastroColegiado(ModelAndView mav) {
-        mav.setViewName("admin/FormColegiados");
+        mav.setViewName("admin/formColegiado");
         mav.addObject("colegiado", new Colegiado());
         return mav;
     }
@@ -133,12 +133,12 @@ public class AdminController {
     public ModelAndView saveColegiado(Colegiado colegiado, ModelAndView mav) {
         if (colegiado.getId() == null) {
             adminService.salvarColegiado(colegiado);
-            mav.setViewName("redirect:/admin/colegiado/" + colegiado.getId() + "/membros");
+            mav.setViewName("redirect:/admin/colegiados/" + colegiado.getId() + "/membros");
 
         }
         else {
             adminService.salvarColegiado(colegiado);
-            mav.setViewName("redirect:/admin/colegiado");
+            mav.setViewName("redirect:/admin/colegiados");
         }
         return mav;
 

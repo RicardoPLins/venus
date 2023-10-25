@@ -25,7 +25,7 @@
                 <tbody>
                     <tr th:each="professor : ${professores}">
                         <td>[[${professor.id}]]</td>
-                        <td><a th:href="@{/professores/{id}(id=${professor.id})}" th:text="${professor.nome}"></a></td>
+                        <td><a th:href="@{/admin/professores/{id}(id=${professor.id})}" th:text="${professor.nome}"></a></td>
                         <td>[[${professor.fone}]]</td>
                         <td>[[${professor.matricula}]]</td>
                         <td>[[${professor.login}]]</td>
