@@ -57,6 +57,11 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.3m</version>
+		</dependency>
 
 	<build>
 		<plugins>

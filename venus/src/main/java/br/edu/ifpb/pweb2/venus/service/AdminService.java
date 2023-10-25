@@ -1,33 +1,34 @@
 package br.edu.ifpb.pweb2.venus.service;
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.edu.ifpb.pweb2.venus.model.Aluno;
 import br.edu.ifpb.pweb2.venus.repository.AlunoRepository;
 
-public class AdminService implements Service<Admin, Integer> {
-    
+@Service
+public class AdminService {
     @Autowired
     private AlunoRepository alunoRepository;
 
-    @Override
-    public List<Admin> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    @Transactional
+    public void removerAluno(Integer id) {
+        alunoRepository.deleteById(id);
+    }
+    @Transactional
+    public void saveAluno(Aluno aluno) {
+        alunoRepository.save(aluno);
     }
 
-    @Override
-    public Admin findById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    public List<Aluno> listAluno() {
+        return alunoRepository.findAll();
     }
 
-    @Override
-    public Admin save(Admin t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public Optional<Aluno> getAluno(Integer id) {
+        return alunoRepository.findById(id);
     }
-
+    
 }

@@ -1,5 +1,5 @@
-package br.edu.ifpb.pweb2.venus.controller;
+// package br.edu.ifpb.pweb2.venus.controller;
 
-public class ProfessorController {
+// public class ProfessorController {
     
-}
+// }
