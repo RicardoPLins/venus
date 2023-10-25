@@ -1,6 +1,22 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:insert="~{layout/layout}"
     th:with="titulo='Alunos'">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script>
+            function deletarAluno(id) {
+                if (confirm('Tem certeza que deseja excluir este aluno?')) {
+                    fetch(`/admin/alunos/excluir/${id}`, {
+                        method: 'DELETE'
+                    })
+                }
+            }
+        </script>
+    </head>
 
 
 <body>
@@ -24,61 +40,31 @@
                         <th>Matricula</th>
                         <th>Login</th>
                         <th>Senha</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="aluno : ${alunos}">
                         <td>[[${aluno.id}]]</td>
-                        <td><a th:href="@{/alunos/{id}(id=${aluno.id})}" th:text="${aluno.nome}"></a></td>
+                        <td><a th:href="@{/admin/alunos/{id}(id=${aluno.id})}" th:text="${aluno.nome}"></a>
+                        </td>
                         <td>[[${aluno.fone}]]</td>
                         <td>[[${aluno.matricula}]]</td>
                         <td>[[${aluno.login}]]</td>
-                        <td>
-                            [[${#strings.length(aluno.senha) >= 3 ? #strings.substring(aluno.senha, 0, 3) + '...' :
-                            aluno.senha}]]
-                        </td>
-                        <!-- <td>
-                            <form th:action="@{/admin/alunos/excluir(id=${aluno.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este aluno?');">
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i> Excluir
-                                </button>
-                            </form>
-                        </td> -->
-                        <td>
-                            <button class="btn btn-danger" onclick="confirmAndDeleteAluno(${aluno.id})">
-                                <i class="fas fa-trash"></i> Excluir
-                            </button>
-                        </td>
-
+                        <td>[[${#strings.length(aluno.senha) >= 3 ? #strings.substring(aluno.senha, 0, 3) +
+                            '...' :
+                            aluno.senha}]]</td>
+                            <td>
+                                <a href="#" class="btn btn-danger delete-button" data-id="[[${aluno.id}]]">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <!-- <script>
-        function confirmAndDeleteAluno(alunoId) {
-            var confirmDelete = confirm('Tem certeza que deseja excluir este aluno?');
-            if (confirmDelete) {
-                // Enviar uma solicitação AJAX DELETE para excluir o aluno
-                fetch(`/admin/alunos/excluir/${alunoId}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())  // Se você espera uma resposta JSON do servidor
-                .then(data => {
-                    // Lógica para lidar com a resposta do servidor, se necessário
-                    console.log(data);
-                    // Recarregar a página ou atualizar a lista de alunos de alguma forma
-                    // window.location.reload();  // Recarrega a página inteira
-                    // Atualize a lista de alunos usando JavaScript, se você estiver usando AJAX para carregar a lista inicialmente
-                })
-                .catch(error => {
-                    // Lógica para lidar com erros, se necessário
-                    console.error('Erro:', error);
-                });
-            }
-        }
-    </script> -->
 </body>
 
 </html>

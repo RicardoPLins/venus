@@ -55,7 +55,7 @@ public class AdminController {
         return mav;
     }
 
-    @PostMapping("/alunos/{id}")
+    @DeleteMapping("/alunos/{id}")
     public ModelAndView deleteAluno(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         adminService.removerAluno(id);
         mav.setViewName("redirect:/admin/alunos");
