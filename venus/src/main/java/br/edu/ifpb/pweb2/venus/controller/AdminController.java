@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
+import br.edu.ifpb.pweb2.venus.model.Assunto;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.service.AdminService;
 import jakarta.validation.Valid;
@@ -102,6 +103,49 @@ public class AdminController {
         adminService.removerProfessor(id);
         mav.setViewName("redirect:/admin/professores");
         mav.addObject("professores", adminService.listarProfessores());
+        return mav;
+    }
+
+    @GetMapping("/assuntos")
+    public ModelAndView getAssuntos(ModelAndView mav) {
+        mav.setViewName("admin/listAssunto");
+        mav.addObject("assuntos", adminService.listAssunto());
+        return mav;
+    }
+
+    @GetMapping("/assuntos/cadastro")
+    public ModelAndView getCadastroAssunto(ModelAndView mav) {
+        mav.setViewName("admin/formAssunto");
+        mav.addObject("assunto", new Assunto());
+        return mav;
+    }
+
+    @PostMapping("/assuntos")
+    public ModelAndView saveAssunto(@Valid Assunto assunto, BindingResult result, ModelAndView mav) {
+        if (result.hasErrors()) {
+            mav.setViewName("admin/formAssunto");
+            mav.addObject("assunto", assunto);
+            return mav;
+        }
+        adminService.saveAssunto(assunto);
+        mav.setViewName("redirect:/admin/assuntos");
+        mav.addObject("assuntos", adminService.listAssunto());
+        return mav;
+    }
+
+    @GetMapping("/assuntos/{id}")
+    public ModelAndView editAssunto(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        mav.setViewName("admin/formAssunto");
+        mav.addObject("assunto", adminService.getAssunto(id));
+        return mav;
+    }
+
+
+    @DeleteMapping("/assuntos/{id}")
+    public ModelAndView deleteAssunto(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        adminService.removerAssunto(id);
+        mav.setViewName("redirect:/admin/assuntos");
+        mav.addObject("assuntos", adminService.listAssunto());
         return mav;
     }
 

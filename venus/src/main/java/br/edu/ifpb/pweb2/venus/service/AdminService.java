@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
+import br.edu.ifpb.pweb2.venus.model.Assunto;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.repository.AlunoRepository;
+import br.edu.ifpb.pweb2.venus.repository.AssuntoRepository;
 import br.edu.ifpb.pweb2.venus.repository.ProfessorRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class AdminService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+
+    @Autowired
+    private AssuntoRepository assuntoRepository;
 
     @Transactional
     public void removerAluno(Integer id) {
@@ -52,6 +57,23 @@ public class AdminService {
 
     public Optional<Professor> getProfessor(Integer id) {
         return professorRepository.findById(id);
+    }
+
+    @Transactional
+    public void removerAssunto(Integer id) {
+        assuntoRepository.deleteById(id);
+    }
+    @Transactional
+    public void saveAssunto(Assunto assunto) {
+        assuntoRepository.save(assunto);
+    }
+
+    public List<Assunto> listAssunto() {
+        return assuntoRepository.findAll();
+    }
+
+    public Optional<Assunto> getAssunto(Integer id) {
+        return assuntoRepository.findById(id);
     }
     
 }
