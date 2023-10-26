@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>Processos</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="icon">
+            <a th:href="@{/professor/home}">&#9665; </a>
+        </div>
+        <h1>Processos</h1>
+    </div>
+
+    <div class="tabela">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Assunto</th>
+                    <th>Status</th>
+                    <th>Documento</th>
+                    <th>Votar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="processo : ${processos}" th:object="${processo}">
+                    <td th:text="${processo.numero}"></td>
+                    <td th:text="${processo.assunto.nome}"></td>
+                    <td th:text="${processo.status.getStatus()}"></td>
+                    <td th:if="${processo.anexos.size() == 0}" > Sem documentos </td>
+                    <td th:unless="${processo.anexos.size() == 0}">
+                        <a href="#">Ver Documento</a>
+                    </td>
+                    <td th:if="${processo.decisaoRelator == null}">
+                        <a th:href="@{/professores/processos/{id}(id=${processo.id})}">Votar</a>
+                    </td>
+                    <td th:unless="${processo.decisaoRelator == null}" th:text="${processo.decisaoRelator}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
