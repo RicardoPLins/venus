@@ -10,7 +10,7 @@
     <script>
         function deletarAssunto(id) {
             if (confirm('Tem certeza que deseja excluir este aluno?')) {
-                fetch(`/admin/assuntos/${id}`, {
+                fetch(`admin/assuntos/${id}`, {
                     method: 'DELETE'
                 })
             }
@@ -45,9 +45,11 @@
                         <td><a th:href="@{/admin/assuntos/{id}(id=${assunto.id})}" th:text="${assunto.nome}"></a>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-danger delete-button" data-id="[[${assunto.id}]]">
+                            <button th:onclick="|deletarAssunto(${assunto.id})|">
                                 <i class="fas fa-trash"></i>
-                            </a>
+                              </button>
+                            <!-- <a href="#" class="btn btn-danger delete-button" data-id="[[${assunto.id}]]">
+                            </a> -->
                         </td>
 
                     </tr>
