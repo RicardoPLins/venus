@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,14 +19,19 @@ public class Professor {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Campo obrigatório")
     private String nome;
 
+    @NotBlank(message = "Campo obrigatório")
     private String fone;
 
+    @NotBlank(message = "Campo obrigatório")
     private String matricula;
 
+    @NotBlank(message = "Campo obrigatório")
     private String login;
 
+    @NotBlank(message = "Campo obrigatório")
     private String senha;
     
     private Boolean coordenador;

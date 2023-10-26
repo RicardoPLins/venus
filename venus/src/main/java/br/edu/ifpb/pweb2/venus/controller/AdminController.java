@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
 import br.edu.ifpb.pweb2.venus.model.Colegiado;
+import br.edu.ifpb.pweb2.venus.model.Curso;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.service.AdminService;
 import jakarta.validation.Valid;
@@ -144,10 +145,52 @@ public class AdminController {
     }
 
     @DeleteMapping("/colegiados/{id}")
-    public ModelAndView deleteColegiado(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+    public ModelAndView deleteColegiado(@PathVariable(value = "id") Long id, ModelAndView mav) {
         adminService.removerColegiado(id);
         mav.setViewName("redirect:/admin/colegiados");
         mav.addObject("colegiado", adminService.listarColegiado());
+        return mav;
+    }
+
+    @GetMapping("/cursos")
+    public ModelAndView getCursos(ModelAndView mav) {
+        mav.setViewName("admin/listCurso");
+        mav.addObject("cursos", adminService.listarCursos());
+        return mav;
+    }
+
+    @GetMapping("/cursos/cadastro")
+    public ModelAndView getCadastro(ModelAndView mav) {
+        mav.setViewName("admin/formCurso");
+        mav.addObject("curso", new Curso());
+        return mav;
+    }
+
+    @GetMapping("/cursos/{id}")
+    public ModelAndView editCurso(@PathVariable(value = "id") Long id, ModelAndView mav) {
+        mav.setViewName("admin/formCurso");
+        mav.addObject("curso", adminService.getCurso(id));
+        return mav;
+    }
+    
+    @PostMapping("/cursos")
+    public ModelAndView saveCurso(@Valid Curso curso, BindingResult result, ModelAndView mav) {
+        if (result.hasErrors()){
+            mav.addObject("curso", curso);
+            mav.setViewName("/admin/formCurso");
+            return mav;
+        }
+        adminService.salvarCurso(curso);
+        mav.setViewName("redirect:/admin/cursos");
+        mav.addObject("cursos", adminService.listarCursos());
+        return mav;
+    }
+
+    @DeleteMapping("/cursos/{id}")
+    public ModelAndView deleteCurso(@PathVariable(value = "id") Long id, ModelAndView mav) {
+        adminService.removerCurso(id);
+        mav.setViewName("redirect:/admin/cursos");
+        mav.addObject("cursos", adminService.listarCursos());
         return mav;
     }
 

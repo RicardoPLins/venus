@@ -1,5 +1,13 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:insert="~{layout/layout}" th:with="titulo='Cadastro de Professor'">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+    <title>Professor</title>
+  </head>
 <body>
     <div layout:fragment="content">
 
@@ -42,6 +50,7 @@
                 <label class="form-check-label mt-1">
                     Coordenador
                 </label>
+                <p th:if="${#fields.hasErrors('coordenador')}" th:errorclass="error" th:errors="*{coordenador}" class="alert alert-danger" />
             </div>
 
             <div class="form-group mx-sm-3 mb-2">

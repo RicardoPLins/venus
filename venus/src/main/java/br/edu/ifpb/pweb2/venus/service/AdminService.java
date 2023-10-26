@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.pweb2.venus.model.Aluno;
 import br.edu.ifpb.pweb2.venus.model.Colegiado;
+import br.edu.ifpb.pweb2.venus.model.Curso;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.repository.AlunoRepository;
 import br.edu.ifpb.pweb2.venus.repository.ColegiadoRepository;
+import br.edu.ifpb.pweb2.venus.repository.CursoRepository;
 import br.edu.ifpb.pweb2.venus.repository.ProfessorRepository;
 
 @Service
@@ -22,7 +24,10 @@ public class AdminService {
     private ProfessorRepository professorRepository;
 
     @Autowired
-    private ColegiadoRepository colegiadoRepository;    
+    private ColegiadoRepository colegiadoRepository; 
+    
+    @Autowired
+    private CursoRepository cursoRepository;
 
     @Transactional
     public void removerAluno(Integer id) {
@@ -60,7 +65,7 @@ public class AdminService {
     }
     
     @Transactional
-    public void removerColegiado(Integer id) {
+    public void removerColegiado(Long id) {
         colegiadoRepository.deleteById(id);
     }
 
@@ -73,7 +78,31 @@ public class AdminService {
         return colegiadoRepository.findAll();
     }
 
-    public Colegiado getColegiado(Long id) {
+    public Optional<Colegiado> getColegiado(Long id) {
         return colegiadoRepository.findById(id);
+    }
+
+    @Transactional
+    public void salvarCurso(Curso curso) {
+        cursoRepository.save(curso);
+    }
+
+    @Transactional
+    public void removerCurso(Long id) {
+        cursoRepository.deleteById(id);
+
+    }
+
+    @Transactional
+    public void updateCurso(Curso curso) {
+        cursoRepository.save(curso);
+    }
+
+    public List<Curso> listarCursos() {
+        return cursoRepository.findAll();
+    }
+
+    public Curso getCurso(Long id) {
+        return cursoRepository.findById(id).orElse(null);
     }
 }

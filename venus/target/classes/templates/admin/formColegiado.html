@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <title>Admin</title>
 </head>
 <body>
  
   <div class="container">
-    <div id="sidebar">
-        <a th:href="@{/admin/colegiados/cadastro}">Novo Colegiado</a>
-
-    </div>
+    <form th:action="@{/admin/colegiados/cadastro}" method="GET">
+      <button class="btn btn-primary" type="submit">Novo Colegiado</button>
+  </form>
 
     <div id="main">
       <h2>COLEGIADO</h2>
@@ -32,16 +33,15 @@
             <label for="descricao">Descrição:</label>
             <input type="text" id="descricao" th:field="*{descricao}" class="form-control"/>
           
-          
             <label for="portaria">Portaria:</label>
             <input type="text" id="portaria" th:field="*{portaria}" class="form-control"/>
           
           
-            <label for="curso"> Curso </label>
-            <select th:field="*{curso.id}" id="curso" class="form-select mb-2">
-                <option th:each="curso : ${cursoItems}" th:value="${curso.id}" th:text="${curso.nome}" />
+            <label for="curso"> Curso:  </label>
+            <select  th:field="*{curso.id}" id="curso" class="form-select mb-2">
+              <option th:each="curso : ${cursoItems}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+          </select>
 
-            </select>
             <table class="table" id="tabela" th:if="${colegiado.id != null && colegiado.membros.size() > 0}">
                 <thead>
                     <tr>
@@ -58,7 +58,6 @@
                             <i class="fas fa-trash"></i> Excluir
                         </button> -->
                     </td>
-                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -66,7 +65,7 @@
           
           <a th:if="${colegiado.id != null}" th:href="${colegiado.id} + '/membros'"> Adicionar membros </a>
 
-          <button type="submit" class="button-style"> Salvar </button>
+          <button type="submit" class="btn btn-primary"> Salvar </button>
         </form>
         
       </div>
