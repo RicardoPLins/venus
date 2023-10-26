@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.edu.ifpb.pweb2.venus.model.Assunto;
 import br.edu.ifpb.pweb2.venus.model.Processo;
+import br.edu.ifpb.pweb2.venus.repository.AssuntoRepository;
 import br.edu.ifpb.pweb2.venus.repository.ProcessoRepository;
 
 @Service
@@ -16,6 +18,9 @@ public class AlunoService {
     @Autowired
     private ProcessoRepository processoRepository;
 
+    @Autowired
+    private AssuntoRepository assuntoRepository;
+
     @Transactional
     public void removerProcesso(Integer id) {
         processoRepository.deleteById(id);
@@ -23,11 +28,17 @@ public class AlunoService {
 
     @Transactional
     public void saveProceso(Processo processo) {
+        Assunto assunto = assuntoRepository.findById(processo.getAssunto().getId()).get();
+        processo.setAssunto(assunto);
         processoRepository.save(processo);
     }
 
     public List<Processo> listProcesso() {
         return processoRepository.findAll();
+    }
+
+    public List<Assunto> listAssunto() {
+        return assuntoRepository.findAll();
     }
 
     public Optional<Processo> getProcesso(Integer id) {
