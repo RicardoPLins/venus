@@ -54,14 +54,14 @@ public class AdminController {
     }
 
     @GetMapping("/alunos/{id}")
-    public ModelAndView editAluno(@PathVariable(value = "id") Long id, ModelAndView mav) {
+    public ModelAndView editAluno(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         mav.setViewName("admin/formAluno");
         mav.addObject("aluno", adminService.getAluno(id));
         return mav;
     }
 
     @DeleteMapping("/alunos/{id}")
-    public ModelAndView deleteAluno(@PathVariable(value = "id") Long id, ModelAndView mav) {
+    public ModelAndView deleteAluno(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         adminService.removerAluno(id);
         mav.setViewName("redirect:/admin/alunos");
         mav.addObject("alunos", adminService.listAluno());
@@ -118,7 +118,7 @@ public class AdminController {
     }
 
     @GetMapping("/colegiados/{id}")
-    public ModelAndView editarColegiado(@PathVariable(value = "id") Long id, ModelAndView mav) {
+    public ModelAndView editarColegiado(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         mav.setViewName("admin/formColegiado");
         mav.addObject("colegiado", adminService.getColegiado(id));
         return mav;
@@ -145,11 +145,36 @@ public class AdminController {
     }
 
     @DeleteMapping("/colegiados/{id}")
-    public ModelAndView deleteColegiado(@PathVariable(value = "id") Long id, ModelAndView mav) {
+    public ModelAndView deleteColegiado(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         adminService.removerColegiado(id);
         mav.setViewName("redirect:/admin/colegiados");
         mav.addObject("colegiado", adminService.listarColegiado());
         return mav;
+    }
+
+    @GetMapping("/colegiados/{id}/membros")
+    public ModelAndView getAddMembros(@PathVariable(value = "id") Integer id, ModelAndView mav) {
+        mav.setViewName("admin/formMembro");
+        mav.addObject("colegiadoId", id);
+        mav.addObject("professores", adminService.listarProfessores());
+        return mav;
+    }
+
+    @PostMapping("/colegiados/membros")
+    public ModelAndView salvarMembro(Integer idColegiado, Integer idProfessor, ModelAndView mav) {
+        adminService.adicionarMembro(idColegiado, idProfessor);
+        mav.setViewName("redirect:/admin/colegiados/" + idColegiado + "/membros");
+        return mav;
+
+    }
+
+    @DeleteMapping("/colegiados/{id}/membros/{idProfessor}")
+    public ModelAndView deletarMembro(@PathVariable(value = "id") Integer idColegiado, @PathVariable(value = "idProfessor") Integer idProfessor, ModelAndView mav) {
+        adminService.deletarMembro(idColegiado, idProfessor);
+        mav.setViewName("/admin/formColegiado");
+        mav.addObject("colegiado", adminService.getColegiado(idColegiado));
+        return mav;
+
     }
 
     // @GetMapping("/cursos")

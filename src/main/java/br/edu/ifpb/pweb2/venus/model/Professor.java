@@ -41,8 +41,8 @@ public class Professor {
     
     private Boolean coordenador;
 
-    @OneToMany(mappedBy = "relator")
-    private List<Processo> processos;
+    // @OneToMany(mappedBy = "relator")
+    // private List<Processo> processos;
 
     @ManyToOne
     @JoinColumn(name="colegiado_id")

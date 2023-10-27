@@ -20,5 +20,13 @@ public class ProfessorService{
     @Autowired
     private ProcessoRepository processoRepository;
 
+    public List<Processo> listProcessoDesignados() {
+        return processoRepository.findAll();
+    }
+
+    public Processo buscarProcesso(Integer id) {
+        return processoRepository.findById(id).get();
+    }
+
    
 }

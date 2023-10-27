@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <title>Admin</title>
+
 </head>
 <body>
 
@@ -34,22 +37,36 @@
                 <th th:text="${colegiado.portaria}">111111111</th>
                 <td>
                     <a th:href="@{/admin/colegiados/{id}(id=${colegiado.id})}" class="btn btn-warning" data-id="[[${colegiado.id}]]">
-                        <i class="fas fa-pencil-square-o"></i>
+                        <i class="fad fa-pencil-square-o"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="#" class="btn btn-danger delete-button" data-id="[[${colegiado.id}]]">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-            
+                  <button class="btn btn-danger" data-id="[[${colegiado.id}]]" th:onclick="|deletar(${colegiado.id})|">
+                      <i class="fas fa-trash"></i>
+                  </button>
+              </td>
               
+            </tr>
+          
               </tr>
             </tbody>
           </table>
         </div>
     </div>
   </div>
+  <script>
+
+    function deletar(colegiadoId) {
+        console.log(`${window.location.href}/${colegiadoId}`);
+        fetch(`${window.location.href}/${colegiadoId}` , {
+            method: 'DELETE',
+        })
+            .then(() => {
+                window.location.reload();
+            })
+    }
+
+</script>
+
 </body>
 </html>

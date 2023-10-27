@@ -1,30 +1,28 @@
 package br.edu.ifpb.pweb2.venus.model;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Processo {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
     private String numero;
@@ -40,40 +38,17 @@ public class Processo {
 
     private byte[] parecer;
 
-    @Enumerated(EnumType.ORDINAL)
     private TipoDecisao decisaoRelator;
 
-    @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    @NotBlank(message = "Campo Obrigatório!")
+    @Size(min=5, max = 40, message = "O requerimento deve ter no min 5 e max 40")
+    private String texto;
 
-    @ManyToOne
-    @JoinColumn(name = "assunto_id")
+    @OneToOne
+    @JoinColumn(name = "id_assunto")
     private Assunto assunto;
 
-    @ManyToOne
-    @JoinColumn(name = "professor_id")
-    private Professor relator;
-
-    // @ManyToOne
-    // @JoinColumn(name = "id_curso")
-    private String curso;
-
-    @ElementCollection
-    private List<byte[]> documentos;
-
-    @ManyToOne
-    @JoinColumn(name = "aluno_Id")
-    private Aluno interessado;
-
-    public void addDocumento(byte[] documento) {
-        this.documentos.add(documento);
-    }
-
-    public void setTipoDecisao(TipoDecisao decisaoRelator) {
-        this.decisaoRelator = decisaoRelator;
-    }
-
-    public TipoDecisao getTipoDecisao() {
-        return this.decisaoRelator;
+    public Processo(Assunto assunto) {
+        this.assunto = assunto;
     }
 }

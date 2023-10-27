@@ -45,28 +45,7 @@
               <option th:each="curso : ${cursoItems}" th:value="${curso.id}" th:text="${curso.nome}"></option>
           </select> -->
 
-            <table class="table" id="tabela" th:if="${colegiado.id != null && colegiado.membros.size() > 0}">
-                <thead>
-                    <tr>
-                        <th scope="col">nome do professor </th>
-                        <th scope="col">Excluir</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="professor : ${colegiado.membros}">
-                        <th th:text="${professor.nome}" scope="row"></th>
-                        <td>
-                          <!-- <button class="btn btn-danger" onclick="confirmAndDeleteProfessor(${professor.id})">
-                            <i class="fas fa-trash"></i> Excluir
-                        </button> -->
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-
-          
-          <a th:if="${colegiado.id != null}" th:href="${colegiado.id} + '/membros'"> Adicionar membros </a>
+        
 
           <button type="submit" class="btn btn-primary"> Salvar </button>
         </form>
@@ -75,4 +54,5 @@
     </div>
   </div>
 </body>
+
 </html>

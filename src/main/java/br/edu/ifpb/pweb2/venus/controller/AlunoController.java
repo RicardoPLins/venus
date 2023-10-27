@@ -1,15 +1,19 @@
 package br.edu.ifpb.pweb2.venus.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.ifpb.pweb2.venus.model.Assunto;
 import br.edu.ifpb.pweb2.venus.model.Processo;
 import br.edu.ifpb.pweb2.venus.model.Professor;
 import br.edu.ifpb.pweb2.venus.service.AlunoService;
@@ -31,10 +35,15 @@ public class AlunoController {
         return mav;
     }
 
+    @ModelAttribute("assuntoItems")
+    public List<Assunto> getAssuntos() {
+        return alunoService.listAssunto();
+    }
+
     @GetMapping("/processos/cadastro")
     public ModelAndView getCadastroAluno(ModelAndView mav) {
         mav.setViewName("alunos/formProcesso");
-        mav.addObject("processo", new Processo());
+        mav.addObject("processo", new Processo(new Assunto()));
         return mav;
     }
 
@@ -45,11 +54,7 @@ public class AlunoController {
             mav.addObject("processo", processo);
             return mav;
         }
-        // Professor professor = (Professor) session.getAttribute("professor");
-        // alunoService.saveProcesso(processo);
-        // mav.setViewName("redirect:/alunos/processos");
-        // mav.addObject("processos", alunoService.listProcesso(professor.getId()));
-        alunoService.saveProcesso(processo);
+        alunoService.saveProceso(processo);
         mav.setViewName("redirect:/alunos/processos");
         mav.addObject("processos", alunoService.listProcesso());
         return mav;

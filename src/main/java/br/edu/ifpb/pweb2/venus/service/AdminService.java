@@ -35,7 +35,7 @@ public class AdminService {
     private AssuntoRepository assuntoRepository;
 
     @Transactional
-    public void removerAluno(Long id) {
+    public void removerAluno(Integer id) {
         alunoRepository.deleteById(id);
     }
     @Transactional
@@ -47,7 +47,7 @@ public class AdminService {
         return alunoRepository.findAll();
     }
 
-    public Optional<Aluno> getAluno(Long id) {
+    public Optional<Aluno> getAluno(Integer id) {
         return alunoRepository.findById(id);
     }
 
@@ -70,7 +70,7 @@ public class AdminService {
     }
     
     @Transactional
-    public void removerColegiado(Long id) {
+    public void removerColegiado(Integer id) {
         colegiadoRepository.deleteById(id);
     }
 
@@ -83,9 +83,29 @@ public class AdminService {
         return colegiadoRepository.findAll();
     }
 
-    public Optional<Colegiado> getColegiado(Long id) {
+    public Optional<Colegiado> getColegiado(Integer id) {
         return colegiadoRepository.findById(id);
     }
+
+    @Transactional
+    public void adicionarMembro(Integer ColegiadoId, Integer professorId) {
+        Colegiado colegiado = colegiadoRepository.findById(ColegiadoId).orElse(null);
+        Professor professor = professorRepository.findById(professorId).orElse(null);
+        colegiado.getMembros().add(professor);
+        professor.setColegiado(colegiado);
+        salvarColegiado(colegiado);
+    }
+
+    @Transactional
+    public void deletarMembro(Integer ColegiadoId, Integer professorId) {
+        Colegiado colegiado = colegiadoRepository.findById(ColegiadoId).orElse(null);
+        Professor professor = professorRepository.findById(professorId).orElse(null);
+        colegiado.getMembros().remove(professor);
+        professor.setColegiado(null);
+        professorRepository.save(professor);
+        colegiadoRepository.save(colegiado);
+    }
+
 
     // @Transactional
     // public void salvarCurso(Curso curso) {
