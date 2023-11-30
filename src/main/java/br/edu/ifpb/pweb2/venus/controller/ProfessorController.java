@@ -22,7 +22,7 @@ public class ProfessorController {
     
     @GetMapping("/processos")
     public ModelAndView processos(ModelAndView mav, HttpSession session) {
-        mav.setViewName("professor/formProcessos");
+        mav.setViewName("professores/formProcessos");
         mav.addObject("processos", professorService.listProcessoDesignados());
         return mav;
     }

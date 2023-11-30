@@ -54,7 +54,8 @@ public class AlunoController {
             mav.addObject("processo", processo);
             return mav;
         }
-        alunoService.saveProceso(processo);
+        processo.setNumero("" + System.currentTimeMillis());
+        alunoService.saveProcesso(processo);
         mav.setViewName("redirect:/alunos/processos");
         mav.addObject("processos", alunoService.listProcesso());
         return mav;
